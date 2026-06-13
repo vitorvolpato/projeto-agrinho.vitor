@@ -1,1 +1,1764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agrinho 2026 — Agro Forte, Futuro Sustentável</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES & THEMES ===== */
+:root {
+  --soil: #3d2b1f;
+  --soil-light: #6b4c3b;
+  --leaf: #2d6a4f;
+  --leaf-light: #52b788;
+  --leaf-pale: #d8f3dc;
+  --sun: #f4a261;
+  --sun-deep: #e76f51;
+  --sky: #90e0ef;
+  --sky-deep: #0096c7;
+  --cream: #fefae0;
+  --wheat: #dda15e;
+  --wheat-pale: #fdf2e9;
+  --text-dark: #1a0a00;
+  --text-mid: #3d2b1f;
+  --text-soft: #6b4c3b;
+  --bg: #fefaf4;
+  --bg-card: #fffdf8;
+  --border: rgba(61,43,31,0.12);
+  --shadow: rgba(61,43,31,0.08);
+  --danger: #c0392b;
+  --danger-pale: #fdecea;
+  --success: #1a7a4a;
+  --success-pale: #e9f7ef;
+  --gold: #b8860b;
+  --gold-pale: #fef9e7;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --soil: #c4a882;
+  --soil-light: #d4b896;
+  --leaf: #52b788;
+  --leaf-light: #74c69d;
+  --leaf-pale: #1b3a2d;
+  --sun: #f4a261;
+  --sun-deep: #e76f51;
+  --sky: #0096c7;
+  --sky-deep: #90e0ef;
+  --cream: #1a1207;
+  --wheat: #dda15e;
+  --wheat-pale: #2a1c0d;
+  --text-dark: #f5ead8;
+  --text-mid: #ddc8b0;
+  --text-soft: #b09070;
+  --bg: #110d08;
+  --bg-card: #1e1510;
+  --border: rgba(196,168,130,0.14);
+  --shadow: rgba(0,0,0,0.4);
+  --danger: #e74c3c;
+  --danger-pale: #2d0f0d;
+  --success: #2ecc71;
+  --success-pale: #0d2a1e;
+  --gold: #f0c040;
+  --gold-pale: #2a2000;
+}
+
+/* DALTONISMO */
+[data-color="deuteranopia"] {
+  --leaf: #1a5fa8;
+  --leaf-light: #4d9fe8;
+  --leaf-pale: #daeeff;
+  --sun: #d4a017;
+  --sun-deep: #a37800;
+  --danger: #0050b3;
+  --success: #b58400;
+  filter: url('#deuteranopia-filter');
+}
+[data-color="protanopia"] {
+  --leaf: #005b8e;
+  --leaf-light: #3a9fd4;
+  --leaf-pale: #d0eaf5;
+  --sun: #c4930a;
+  --sun-deep: #9a7000;
+  --danger: #004080;
+  --success: #9a7000;
+  filter: url('#protanopia-filter');
+}
+
+/* ===== BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-dark);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* SKIP LINK */
+.skip-link {
+  position: absolute; top: -100px; left: 1rem;
+  background: var(--leaf); color: white;
+  padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+  font-weight: 600; z-index: 9999; text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ===== ACCESSIBILITY TOOLBAR ===== */
+#a11y-toolbar {
+  position: fixed; top: 50%; right: 0;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 8px 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -2px 0 16px var(--shadow);
+  z-index: 1000;
+  transition: background var(--transition);
+}
+.a11y-btn {
+  width: 40px; height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-mid);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  position: relative;
+}
+.a11y-btn:hover { background: var(--leaf-pale); color: var(--leaf); transform: scale(1.08); }
+.a11y-btn.active { background: var(--leaf); color: white; border-color: var(--leaf); }
+.a11y-btn[title]:hover::after {
+  content: attr(title);
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  background: var(--text-dark); color: var(--bg);
+  font-size: 11px; padding: 4px 8px;
+  border-radius: 6px; white-space: nowrap;
+  font-family: var(--font-body);
+  pointer-events: none;
+}
+
+/* ===== NAVBAR ===== */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: rgba(254,250,244,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 900;
+  transition: all var(--transition);
+}
+[data-theme="dark"] #navbar {
+  background: rgba(17,13,8,0.92);
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--leaf);
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.nav-brand .logo-icon { font-size: 1.6rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--text-mid); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.03em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--leaf); }
+.nav-progress {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; background: linear-gradient(90deg, var(--leaf), var(--sun));
+  width: 0%; transition: width 0.1s;
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(82,183,136,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(244,162,97,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Animated field lines */
+.hero-field {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 180px; pointer-events: none; opacity: 0.35;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--leaf-pale);
+  color: var(--leaf);
+  border: 1px solid rgba(82,183,136,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  animation: fadeDown 0.8s ease both;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  animation: fadeDown 0.8s 0.1s ease both;
+}
+.hero-title .accent { color: var(--leaf); }
+.hero-title .accent2 { color: var(--sun-deep); }
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-soft);
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+  animation: fadeDown 0.8s 0.2s ease both;
+}
+
+.hero-stats {
+  display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 3rem;
+  animation: fadeDown 0.8s 0.3s ease both;
+}
+.hero-stat {
+  text-align: center;
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-width: 140px;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+.hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 900;
+  color: var(--leaf);
+  display: block;
+}
+.hero-stat .label {
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--leaf);
+  color: white;
+  border: none; border-radius: 100px;
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 1rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 4px 20px rgba(45,106,79,0.3);
+  animation: fadeDown 0.8s 0.4s ease both;
+}
+.cta-btn:hover { transform: translateY(-2px); background: #1e5738; box-shadow: 0 8px 30px rgba(45,106,79,0.4); }
+.cta-btn .arrow { transition: transform 0.2s; }
+.cta-btn:hover .arrow { transform: translateY(4px); }
+
+/* ===== SECTION STRUCTURE ===== */
+section {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-full { max-width: 100%; padding: 5rem 0; }
+.section-full > .inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--leaf); margin-bottom: 0.75rem;
+}
+.section-tag::before {
+  content: '';
+  display: block; width: 24px; height: 2px;
+  background: var(--leaf); border-radius: 2px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700; line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+.section-desc {
+  font-size: 1.05rem; color: var(--text-soft);
+  max-width: 600px; margin-bottom: 3rem;
+}
+
+/* ===== DIVIDERS ===== */
+.wave-divider {
+  width: 100%; overflow: hidden;
+  line-height: 0; transform: scaleX(-1);
+}
+.wave-divider svg { display: block; width: 100%; }
+
+/* ===== SECTION: DADOS DO AGRO ===== */
+#dados {
+  background: var(--bg);
+}
+.dados-bg {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--wheat-pale) 50%, var(--bg) 100%);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+.kpi-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px var(--shadow); }
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.kpi-card.green::before { background: var(--leaf); }
+.kpi-card.orange::before { background: var(--sun); }
+.kpi-card.red::before { background: var(--danger); }
+.kpi-card.blue::before { background: var(--sky-deep); }
+.kpi-card.gold::before { background: var(--gold); }
+
+.kpi-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.kpi-num {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 900;
+  color: var(--text-dark);
+  line-height: 1;
+}
+.kpi-unit { font-size: 1rem; color: var(--text-soft); font-weight: 400; }
+.kpi-label {
+  font-size: 0.85rem; color: var(--text-soft);
+  margin: 0.25rem 0 0.5rem;
+  line-height: 1.4;
+}
+.kpi-source {
+  font-size: 0.7rem; color: var(--text-soft);
+  font-style: italic;
+}
+.kpi-trend {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: 0.75rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 20px;
+}
+.kpi-trend.up { background: var(--success-pale); color: var(--success); }
+.kpi-trend.down { background: var(--danger-pale); color: var(--danger); }
+
+/* BAR CHART */
+.bar-chart {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.bar-chart-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 1.5rem;
+}
+.bar-row {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1rem;
+}
+.bar-label { font-size: 0.82rem; color: var(--text-soft); min-width: 120px; text-align: right; }
+.bar-track {
+  flex: 1; height: 28px;
+  background: var(--leaf-pale);
+  border-radius: 6px; overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%; border-radius: 6px;
+  display: flex; align-items: center; padding-left: 8px;
+  font-size: 0.78rem; font-weight: 700; color: white;
+  transform-origin: left;
+  animation: growBar 1.2s cubic-bezier(0.25,1,0.5,1) both;
+}
+.bar-fill.green { background: var(--leaf); }
+.bar-fill.orange { background: var(--sun-deep); }
+.bar-fill.blue { background: var(--sky-deep); }
+.bar-fill.wheat { background: var(--wheat); }
+
+@keyframes growBar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ===== SECTION: PARANÁ ===== */
+#parana {
+  background: var(--wheat-pale);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  max-width: 100%;
+}
+#parana .inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+
+.parana-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 768px) { .parana-grid { grid-template-columns: 1fr; } }
+
+.highlight-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.highlight-box .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.highlight-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 0.5rem;
+}
+.highlight-box p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.6; }
+.highlight-box .big-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem; font-weight: 900; color: var(--leaf);
+  line-height: 1;
+}
+.highlight-box .source-tag {
+  font-size: 0.7rem; color: var(--text-soft);
+  font-style: italic; margin-top: 0.5rem;
+}
+
+/* ===== SECTION: PROBLEMAS ===== */
+#problemas {
+  background: var(--bg);
+}
+.problem-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.problem-card.warn { border-left-color: var(--sun-deep); }
+.problem-card.info { border-left-color: var(--sky-deep); }
+.problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px var(--shadow); }
+.problem-card .p-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.problem-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 0.75rem;
+}
+.problem-card p { font-size: 0.88rem; color: var(--text-soft); line-height: 1.6; }
+.problem-card .data-pill {
+  display: inline-block; margin-top: 0.75rem;
+  background: var(--danger-pale);
+  color: var(--danger);
+  font-size: 0.75rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+}
+.problem-card.warn .data-pill { background: rgba(231,111,81,0.1); color: var(--sun-deep); }
+.problem-card.info .data-pill { background: rgba(0,150,199,0.1); color: var(--sky-deep); }
+
+/* ===== GERACOES FUTURAS ===== */
+#geracoes {
+  background: linear-gradient(180deg, var(--leaf-pale) 0%, var(--bg) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  max-width: 100%;
+}
+#geracoes .inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  max-width: 720px;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--leaf);
+  opacity: 0.4;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -2.3rem; top: 0.4rem;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--leaf);
+  background: var(--bg);
+}
+.timeline-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--leaf); letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 0.5rem;
+}
+.timeline-body { font-size: 0.88rem; color: var(--text-soft); line-height: 1.6; }
+.timeline-body strong { color: var(--danger); }
+
+/* ===== SECTION: SOLUCOES ===== */
+#solucoes {
+  background: var(--bg);
+}
+.solucao-tabs {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--text-soft);
+  cursor: pointer; transition: all 0.2s;
+}
+.tab-btn:hover { border-color: var(--leaf); color: var(--leaf); }
+.tab-btn.active { background: var(--leaf); color: white; border-color: var(--leaf); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+.solucao-card-big {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 700px) { .solucao-card-big { grid-template-columns: 1fr; } }
+
+.sol-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 0.75rem;
+}
+.sol-info p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1rem; }
+.sol-info .source {
+  font-size: 0.72rem; color: var(--text-soft); font-style: italic;
+}
+
+.sol-metrics { display: flex; flex-direction: column; gap: 0.75rem; }
+.sol-metric {
+  background: var(--leaf-pale);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+[data-theme="dark"] .sol-metric { background: rgba(82,183,136,0.1); }
+.sol-metric .m-icon { font-size: 1.4rem; }
+.sol-metric .m-text { font-size: 0.82rem; color: var(--text-mid); font-weight: 500; }
+.sol-metric .m-val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem; font-weight: 700; color: var(--leaf);
+  margin-left: auto;
+}
+
+/* ===== SECTION: REPORTAGENS ===== */
+#reportagens {
+  background: var(--wheat-pale);
+  border-top: 1px solid var(--border);
+  max-width: 100%;
+}
+#reportagens .inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.report-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.report-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px var(--shadow); }
+.report-thumb {
+  height: 140px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+  position: relative; overflow: hidden;
+}
+.report-thumb.g1 { background: linear-gradient(135deg, #d8f3dc, #95d5b2); }
+.report-thumb.g2 { background: linear-gradient(135deg, #fde8d8, #f4a261); }
+.report-thumb.g3 { background: linear-gradient(135deg, #d0e8ff, #90e0ef); }
+.report-thumb.g4 { background: linear-gradient(135deg, #fef9d0, #f0c040); }
+
+.report-body { padding: 1.25rem; }
+.report-tag {
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--leaf); margin-bottom: 0.5rem;
+}
+.report-title {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+.report-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 0.75rem; }
+.report-result {
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--success);
+  background: var(--success-pale);
+  padding: 4px 10px; border-radius: 20px;
+  display: inline-block;
+}
+.report-source { font-size: 0.7rem; color: var(--text-soft); font-style: italic; margin-top: 0.5rem; }
+
+/* ===== INFOGRAPHIC VISUAL ===== */
+.infographic-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+/* ===== MASCOTE ===== */
+#mascote {
+  position: fixed;
+  bottom: 2rem; left: 2rem;
+  width: 80px; height: 80px;
+  z-index: 800;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  animation: mascoteBounce 4s ease-in-out infinite;
+  pointer-events: all;
+}
+#mascote:hover { transform: scale(1.15) rotate(-5deg); animation: none; }
+#mascote-bubble {
+  position: fixed;
+  bottom: 7rem; left: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px 12px 12px 4px;
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem; color: var(--text-mid);
+  max-width: 220px; line-height: 1.5;
+  box-shadow: 0 4px 20px var(--shadow);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(8px);
+  z-index: 800;
+}
+#mascote-bubble.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+#mascote-bubble .close-bubble {
+  position: absolute; top: 4px; right: 6px;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-soft); font-size: 12px;
+}
+
+@keyframes mascoteBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--soil);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.85rem;
+}
+footer strong { color: white; }
+footer .footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem; color: white;
+  margin-bottom: 0.5rem;
+}
+footer a { color: var(--leaf-light); text-decoration: none; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== AUDIO PLAYER ===== */
+#audio-controls {
+  position: fixed; bottom: 2rem; right: 5rem;
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 800;
+  align-items: flex-end;
+}
+.audio-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--text-mid); cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.audio-btn:hover { background: var(--leaf); color: white; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hero-stats { gap: 1rem; }
+  .hero-stat { min-width: 120px; padding: 0.75rem; }
+  #mascote { width: 60px; height: 60px; left: 1rem; bottom: 1rem; }
+  #audio-controls { right: 4rem; bottom: 1rem; }
+}
+
+/* HIGH CONTRAST */
+.high-contrast {
+  --leaf: #006400;
+  --leaf-light: #008000;
+  --text-dark: #000000;
+  --text-mid: #111111;
+  --bg: #ffffff;
+  --bg-card: #f8f8f8;
+  --border: rgba(0,0,0,0.3);
+}
+[data-theme="dark"].high-contrast {
+  --text-dark: #ffffff;
+  --bg: #000000;
+  --bg-card: #111111;
+  --border: rgba(255,255,255,0.3);
+}
+
+/* FONT SIZE CONTROLS */
+body.text-lg { font-size: 18px; }
+body.text-xl { font-size: 21px; }
+
+/* ACCESSIBLE FOCUS */
+:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Accessibility Color Filters (for colorblindness) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="deuteranopia-filter">
+      <feColorMatrix type="matrix" values="0.367,0.861,-0.228,0,0 0.280,0.673,0.047,0,0 -0.012,0.043,0.969,0,0 0,0,0,1,0"/>
+    </filter>
+    <filter id="protanopia-filter">
+      <feColorMatrix type="matrix" values="0.152,1.053,-0.205,0,0 0.115,0.786,0.099,0,0 -0.004,-0.048,1.052,0,0 0,0,0,1,0"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Skip link -->
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+<!-- Accessibility toolbar -->
+<aside id="a11y-toolbar" role="complementary" aria-label="Ferramentas de acessibilidade">
+  <button class="a11y-btn" id="btn-dark" title="Modo escuro/claro" onclick="toggleDark()" aria-label="Alternar modo escuro">🌙</button>
+  <button class="a11y-btn" id="btn-deut" title="Daltonismo (deuteranopia)" onclick="toggleColor('deuteranopia')" aria-label="Modo deuteranopia">🟡</button>
+  <button class="a11y-btn" id="btn-prot" title="Daltonismo (protanopia)" onclick="toggleColor('protanopia')" aria-label="Modo protanopia">🔵</button>
+  <button class="a11y-btn" id="btn-contrast" title="Alto contraste" onclick="toggleContrast()" aria-label="Alto contraste">⬛</button>
+  <button class="a11y-btn" id="btn-textup" title="Aumentar texto" onclick="changeFontSize(1)" aria-label="Aumentar tamanho do texto">A+</button>
+  <button class="a11y-btn" id="btn-textdn" title="Diminuir texto" onclick="changeFontSize(-1)" aria-label="Diminuir tamanho do texto">A−</button>
+  <button class="a11y-btn" id="btn-audio" title="Leitura de tela (áudio)" onclick="toggleAudio()" aria-label="Ativar leitura em voz alta">🔊</button>
+</aside>
+
+<!-- Navbar -->
+<nav id="navbar" role="navigation" aria-label="Navegação principal">
+  <a href="#hero" class="nav-brand" aria-label="Início - Agrinho 2026">
+    <span class="logo-icon">🌿</span>
+    Agrinho 2026
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#dados">Dados</a></li>
+    <li><a href="#parana">Paraná</a></li>
+    <li><a href="#problemas">Problemas</a></li>
+    <li><a href="#geracoes">Gerações</a></li>
+    <li><a href="#solucoes">Soluções</a></li>
+    <li><a href="#reportagens">Reportagens</a></li>
+  </ul>
+  <div class="nav-progress" id="nav-progress" role="progressbar" aria-label="Progresso de leitura" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</nav>
+
+<!-- AUDIO CONTROLS -->
+<div id="audio-controls" style="display:none" role="region" aria-label="Controles de áudio">
+  <button class="audio-btn" onclick="speakSection()" aria-label="Ler seção atual em voz alta">
+    🔊 Ler esta seção
+  </button>
+  <button class="audio-btn" onclick="window.speechSynthesis.cancel()" aria-label="Parar leitura">
+    ⏹ Parar
+  </button>
+</div>
+
+<!-- MASCOTE -->
+<div id="mascote" role="button" tabindex="0" aria-label="Mascote do Agrinho — clique para uma mensagem" onclick="showMascote()" onkeypress="if(event.key==='Enter')showMascote()">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Corpo do mascote: girassol animado -->
+    <circle cx="50" cy="55" r="28" fill="#2d6a4f" stroke="#1e5738" stroke-width="2"/>
+    <!-- Folhas -->
+    <ellipse cx="22" cy="58" rx="10" ry="5" fill="#52b788" transform="rotate(-30 22 58)"/>
+    <ellipse cx="78" cy="58" rx="10" ry="5" fill="#52b788" transform="rotate(30 78 58)"/>
+    <!-- Rosto -->
+    <circle cx="50" cy="52" r="18" fill="#f4d03f" stroke="#e6b800" stroke-width="1.5"/>
+    <!-- Pétalas -->
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(45 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(90 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(135 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(180 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(225 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(270 50 52)"/>
+    <ellipse cx="50" cy="28" rx="5" ry="8" fill="#f4a261" opacity="0.9" transform="rotate(315 50 52)"/>
+    <!-- Rosto -->
+    <circle cx="44" cy="50" r="2.5" fill="#3d2b1f"/>
+    <circle cx="56" cy="50" r="2.5" fill="#3d2b1f"/>
+    <path d="M44 57 Q50 63 56 57" fill="none" stroke="#3d2b1f" stroke-width="2" stroke-linecap="round"/>
+    <!-- Chapéu -->
+    <rect x="34" y="30" width="32" height="6" rx="3" fill="#6b4c3b"/>
+    <rect x="40" y="20" width="20" height="12" rx="3" fill="#6b4c3b"/>
+    <!-- Hat leaf -->
+    <ellipse cx="59" cy="24" rx="6" ry="3" fill="#52b788" transform="rotate(30 59 24)"/>
+  </svg>
+</div>
+<div id="mascote-bubble" role="status" aria-live="polite">
+  <button class="close-bubble" onclick="hideMascote()" aria-label="Fechar mensagem">✕</button>
+  <span id="bubble-text"></span>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main id="main-content">
+
+<!-- ========== HERO ========== -->
+<section id="hero" aria-label="Seção inicial">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <svg class="hero-field" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
+    <!-- Animated field rows -->
+    <g fill="none" stroke="#2d6a4f" stroke-width="1" opacity="0.4">
+      <path d="M0,150 Q180,120 360,140 Q540,160 720,130 Q900,100 1080,140 Q1260,160 1440,140 L1440,180 L0,180 Z" fill="#d8f3dc" stroke="none" opacity="0.5"/>
+      <path d="M0,165 Q240,150 480,158 Q720,165 960,152 Q1200,140 1440,160 L1440,180 L0,180 Z" fill="#b7e4c7" stroke="none" opacity="0.4"/>
+      <!-- Stalks -->
+      <line x1="100" y1="180" x2="100" y2="140"/><line x1="200" y1="180" x2="200" y2="135"/>
+      <line x1="300" y1="180" x2="300" y2="142"/><line x1="400" y1="180" x2="400" y2="138"/>
+      <line x1="500" y1="180" x2="500" y2="145"/><line x1="600" y1="180" x2="600" y2="130"/>
+      <line x1="700" y1="180" x2="700" y2="140"/><line x1="800" y1="180" x2="800" y2="135"/>
+      <line x1="900" y1="180" x2="900" y2="142"/><line x1="1000" y1="180" x2="1000" y2="138"/>
+      <line x1="1100" y1="180" x2="1100" y2="145"/><line x1="1200" y1="180" x2="1200" y2="132"/>
+      <line x1="1300" y1="180" x2="1300" y2="140"/><line x1="1400" y1="180" x2="1400" y2="137"/>
+    </g>
+  </svg>
+
+  <span class="hero-badge" aria-label="Concurso Agrinho 2026">
+    🏆 Concurso Agrinho 2026
+  </span>
+
+  <h1 class="hero-title">
+    <span class="accent">Agro Forte,</span><br>
+    <span class="accent2">Futuro Sustentável</span>
+  </h1>
+
+  <p class="hero-sub">
+    Equilíbrio entre produção e meio ambiente: como o campo brasileiro pode alimentar o mundo sem destruir o planeta que alimenta o campo.
+  </p>
+
+  <div class="hero-stats" role="list">
+    <div class="hero-stat" role="listitem">
+      <span class="num" aria-label="25,13%">25,13%</span>
+      <span class="label">do PIB Brasileiro<br><small style="font-size:0.65rem">Cepea/USP · 2025</small></span>
+    </div>
+    <div class="hero-stat" role="listitem">
+      <span class="num" aria-label="R$ 3,2 tri" style="color:var(--sun-deep)">R$3,2 tri</span>
+      <span class="label">PIB do Agronegócio<br><small style="font-size:0.65rem">Cepea/CNA · 2025</small></span>
+    </div>
+    <div class="hero-stat" role="listitem">
+      <span class="num" aria-label="12,2 porcento" style="color:var(--sky-deep)">+12,2%</span>
+      <span class="label">Crescimento em 2025<br><small style="font-size:0.65rem">IBGE · 2026</small></span>
+    </div>
+    <div class="hero-stat" role="listitem">
+      <span class="num" aria-label="984 mil ha" style="color:var(--danger)">984 mil</span>
+      <span class="label">Hectares desmatados<br><small style="font-size:0.65rem">MapBiomas · 2025</small></span>
+    </div>
+  </div>
+
+  <a href="#dados" class="cta-btn" aria-label="Explorar o site">
+    Explorar ↓ <span class="arrow">↓</span>
+  </a>
+</section>
+
+<!-- ========== DADOS DO AGRO BRASIL ========== -->
+<section id="dados" aria-labelledby="dados-title">
+  <div class="section-tag" aria-hidden="true">Seção 1</div>
+  <h2 id="dados-title" class="section-title">O Poder do Agro Brasileiro</h2>
+  <p class="section-desc">Dados verificados das maiores instituições de pesquisa do Brasil mostram o tamanho e a importância do setor.</p>
+
+  <div class="kpi-grid reveal" role="list">
+    <article class="kpi-card green" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">🌱</div>
+      <span class="kpi-trend up" aria-label="Alta de 12,2%">▲ +12,2%</span>
+      <div class="kpi-num">R$3,20<span class="kpi-unit"> tri</span></div>
+      <p class="kpi-label">PIB do agronegócio em 2025, incluindo insumos, produção primária, agroindústria e agrosserviços</p>
+      <p class="kpi-source">Fonte: Cepea/USP em parceria com CNA, abr. 2026</p>
+    </article>
+
+    <article class="kpi-card orange" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">📊</div>
+      <span class="kpi-trend up" aria-label="Alta">▲ +2,2 p.p.</span>
+      <div class="kpi-num">25,13<span class="kpi-unit">%</span></div>
+      <p class="kpi-label">Participação do agronegócio no PIB nacional em 2025, acima dos 22,9% registrados em 2024</p>
+      <p class="kpi-source">Fonte: Cepea/CNA, abr. 2026</p>
+    </article>
+
+    <article class="kpi-card blue" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">🌽</div>
+      <span class="kpi-trend up">▲ +11,7%</span>
+      <div class="kpi-num">32,8<span class="kpi-unit">%</span></div>
+      <p class="kpi-label">Parcela do crescimento total do PIB 2025 atribuída à agropecuária, sendo a atividade que mais cresceu no ano</p>
+      <p class="kpi-source">Fonte: IBGE, mar. 2026</p>
+    </article>
+
+    <article class="kpi-card gold" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">🌾</div>
+      <span class="kpi-trend up">▲ 2º maior</span>
+      <div class="kpi-num">R$775<span class="kpi-unit"> bi</span></div>
+      <p class="kpi-label">Valor adicionado bruto da agropecuária em 2025 — segundo maior resultado histórico, atrás apenas de 2023</p>
+      <p class="kpi-source">Fonte: IBGE, mar. 2026</p>
+    </article>
+
+    <article class="kpi-card green" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">🌽</div>
+      <span class="kpi-trend up">▲ +23,6%</span>
+      <div class="kpi-num">Milho<span class="kpi-unit"> récord</span></div>
+      <p class="kpi-label">Milho cresceu 23,6% e soja 14,6% em 2025 — ambas com recordes históricos de produção na série do IBGE</p>
+      <p class="kpi-source">Fonte: IBGE/CNN Brasil, mar. 2026</p>
+    </article>
+
+    <article class="kpi-card red" role="listitem">
+      <div class="kpi-icon" aria-hidden="true">🌳</div>
+      <span class="kpi-trend down">▼ -20,6%</span>
+      <div class="kpi-num">984<span class="kpi-unit"> mil ha</span></div>
+      <p class="kpi-label">Área desmatada em 2025 — primeira vez abaixo de 1 milhão de hectares desde 2019, segundo MapBiomas</p>
+      <p class="kpi-source">Fonte: MapBiomas RAD2025, mai. 2026</p>
+    </article>
+  </div>
+
+  <div class="bar-chart reveal" role="region" aria-label="Gráfico de crescimento por cultura em 2025">
+    <h3 class="bar-chart-title">🌾 Crescimento das Principais Culturas — Brasil 2025</h3>
+    <div role="list">
+      <div class="bar-row" role="listitem">
+        <span class="bar-label">Milho</span>
+        <div class="bar-track">
+          <div class="bar-fill green" style="width:79%" aria-label="Milho cresceu 23,6%">+23,6%</div>
+        </div>
+      </div>
+      <div class="bar-row" role="listitem">
+        <span class="bar-label">Soja</span>
+        <div class="bar-track">
+          <div class="bar-fill green" style="width:49%;animation-delay:0.1s" aria-label="Soja cresceu 14,6%">+14,6%</div>
+        </div>
+      </div>
+      <div class="bar-row" role="listitem">
+        <span class="bar-label">Pecuária</span>
+        <div class="bar-track">
+          <div class="bar-fill orange" style="width:28%;animation-delay:0.2s" aria-label="Pecuária cresceu 8,5%">+8,5%</div>
+        </div>
+      </div>
+      <div class="bar-row" role="listitem">
+        <span class="bar-label">Insumos Agro</span>
+        <div class="bar-track">
+          <div class="bar-fill blue" style="width:18%;animation-delay:0.3s" aria-label="Insumos cresceram 5,37%">+5,37%</div>
+        </div>
+      </div>
+      <div class="bar-row" role="listitem">
+        <span class="bar-label">Agroindústria</span>
+        <div class="bar-track">
+          <div class="bar-fill wheat" style="width:9%;animation-delay:0.4s" aria-label="Agroindústria cresceu 3,18%">+3,18%</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--text-soft);margin-top:0.75rem;font-style:italic">Fontes: Cepea/USP, CNA, IBGE — 2025/2026</p>
+  </div>
+
+  <!-- Infographic visual -->
+  <div class="infographic-container reveal" role="img" aria-label="Infográfico: O agronegócio brasileiro alimenta o mundo">
+    <svg viewBox="0 0 900 220" width="100%" aria-hidden="true">
+      <!-- Background -->
+      <rect x="0" y="0" width="900" height="220" rx="12" fill="none"/>
+      <!-- Chain nodes -->
+      <!-- Node 1 -->
+      <rect x="20" y="60" width="130" height="100" rx="10" fill="#d8f3dc" stroke="#52b788" stroke-width="1.5"/>
+      <text x="85" y="95" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" fill="#1e5738" font-weight="700">Insumos</text>
+      <text x="85" y="113" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#2d6a4f">Sementes, Fertilizantes</text>
+      <text x="85" y="127" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#2d6a4f">Máquinas Agrícolas</text>
+      <text x="85" y="147" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#1e5738" font-weight="700">+5,37% 2025</text>
+      <!-- Arrow 1 -->
+      <path d="M152 110 L178 110" stroke="#52b788" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+      <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#52b788" stroke-width="2" stroke-linecap="round"/></marker></defs>
+      <!-- Node 2 -->
+      <rect x="180" y="60" width="130" height="100" rx="10" fill="#fdf2e9" stroke="#f4a261" stroke-width="1.5"/>
+      <text x="245" y="95" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" fill="#8b4513" font-weight="700">Produção</text>
+      <text x="245" y="113" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#6b4c3b">Grãos, Carnes</text>
+      <text x="245" y="127" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#6b4c3b">Frutas, Laticínios</text>
+      <text x="245" y="147" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#8b4513" font-weight="700">+17,06% 2025</text>
+      <!-- Arrow 2 -->
+      <path d="M312 110 L338 110" stroke="#f4a261" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f4a261" stroke-width="2" stroke-linecap="round"/></marker></defs>
+      <!-- Node 3 -->
+      <rect x="340" y="60" width="130" height="100" rx="10" fill="#e8f4fd" stroke="#0096c7" stroke-width="1.5"/>
+      <text x="405" y="95" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" fill="#004080" font-weight="700">Agroindústria</text>
+      <text x="405" y="113" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#0050a0">Processamento</text>
+      <text x="405" y="127" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#0050a0">Frigoríficos, Moinhos</text>
+      <text x="405" y="147" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#004080" font-weight="700">+3,18% 2025</text>
+      <!-- Arrow 3 -->
+      <path d="M472 110 L498 110" stroke="#0096c7" stroke-width="2" fill="none" marker-end="url(#a3)"/>
+      <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#0096c7" stroke-width="2" stroke-linecap="round"/></marker></defs>
+      <!-- Node 4 -->
+      <rect x="500" y="60" width="130" height="100" rx="10" fill="#fef9e7" stroke="#b8860b" stroke-width="1.5"/>
+      <text x="565" y="95" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" fill="#7d5a00" font-weight="700">Agrosserviços</text>
+      <text x="565" y="113" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#7d5a00">Logística, Comércio</text>
+      <text x="565" y="127" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#7d5a00">Armazenamento</text>
+      <text x="565" y="147" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#7d5a00" font-weight="700">+6,27% 2025</text>
+      <!-- Arrow 4 -->
+      <path d="M632 110 L658 110" stroke="#b8860b" stroke-width="2" fill="none" marker-end="url(#a4)"/>
+      <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b8860b" stroke-width="2" stroke-linecap="round"/></marker></defs>
+      <!-- Node 5: Exportação -->
+      <rect x="660" y="40" width="210" height="140" rx="10" fill="#2d6a4f" stroke="#1e5738" stroke-width="1.5"/>
+      <text x="765" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="14" fill="white" font-weight="700">🌍 Exportações</text>
+      <text x="765" y="95" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#b7e4c7">25,13% do PIB Brasil</text>
+      <text x="765" y="113" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#b7e4c7">+12,2% em 2025</text>
+      <text x="765" y="133" text-anchor="middle" font-family="Space Mono, monospace" font-size="13" fill="#f4a261" font-weight="700">R$ 3,20 tri</text>
+      <text x="765" y="153" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#74c69d">Fonte: Cepea/CNA · 2026</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ========== PARANÁ ========== -->
+<div id="parana" class="section-full">
+<div class="inner" aria-labelledby="parana-title">
+  <div class="section-tag" aria-hidden="true">Seção 2</div>
+  <h2 id="parana-title" class="section-title">🌿 O Paraná no Coração do Agro</h2>
+  <p class="section-desc">O Paraná é o 2º maior produtor de grãos do Brasil e lidera no abate de frangos no país.</p>
+
+  <div class="parana-grid">
+    <div>
+      <div class="highlight-box reveal">
+        <div class="icon" aria-hidden="true">🌾</div>
+        <div class="big-num" aria-label="Mais de R$ 200 bilhões">+R$200 bi</div>
+        <h3>Valor Bruto da Produção 2025</h3>
+        <p>O campo paranaense deve encerrar 2025 com um dos maiores desempenhos da sua história. O salto da safra de grãos e o crescimento da pecuária são os motores desse resultado histórico.</p>
+        <p class="source-tag">Fonte: Deral/Governo do Paraná, dez. 2025</p>
+      </div>
+
+      <div class="highlight-box reveal">
+        <div class="icon" aria-hidden="true">🫘</div>
+        <div class="big-num" aria-label="22,4 milhões de toneladas">22,4 Mt</div>
+        <h3>Soja 2025 — Recorde</h3>
+        <p>A soja paranaense salta de 18,6 milhões para 22,4 milhões de toneladas em 2025 — crescimento de 20%. O Paraná já responde por 14% da produção nacional de grãos.</p>
+        <p class="source-tag">Fonte: IBGE/IPARDES, 2025</p>
+      </div>
+
+      <div class="highlight-box reveal">
+        <div class="icon" aria-hidden="true">🐔</div>
+        <div class="big-num" aria-label="2,2 milhões de frangos abatidos por dia">2,2 mi</div>
+        <h3>Liderança no Abate de Frangos</h3>
+        <p>Em 2024, o Paraná abateu 2,2 milhões de cabeças — quase 150% a mais que o segundo colocado, Santa Catarina. Carne de frango in natura exportada: US$ 3,2 bilhões (jan-nov 2025).</p>
+        <p class="source-tag">Fonte: IPARDES/Ipardes, dez. 2025</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="highlight-box reveal" style="background: linear-gradient(135deg, #d8f3dc, #95d5b2); border: none;">
+        <h3 style="color: #1e5738; font-size: 1.2rem; margin-bottom: 1rem;">📦 Exportações do Paraná 2025</h3>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
+          <div style="background:white;border-radius:8px;padding:0.75rem;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.85rem;color:#3d2b1f;font-weight:600">🫘 Complexo Soja</span>
+            <span style="font-family:'Space Mono';font-size:0.9rem;color:#1e5738;font-weight:700">US$ 7,18 bi</span>
+          </div>
+          <div style="background:white;border-radius:8px;padding:0.75rem;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.85rem;color:#3d2b1f;font-weight:600">🥩 Complexo Carnes</span>
+            <span style="font-family:'Space Mono';font-size:0.9rem;color:#1e5738;font-weight:700">US$ 4,64 bi</span>
+          </div>
+          <div style="background:white;border-radius:8px;padding:0.75rem;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.85rem;color:#3d2b1f;font-weight:600">🌽 Cereais</span>
+            <span style="font-family:'Space Mono';font-size:0.9rem;color:#1e5738;font-weight:700">+109% em 2025</span>
+          </div>
+          <div style="background:white;border-radius:8px;padding:0.75rem;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.85rem;color:#3d2b1f;font-weight:600">🐷 Carne Suína</span>
+            <span style="font-family:'Space Mono';font-size:0.9rem;color:#1e5738;font-weight:700">+41,2% em 2025</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.6);border-radius:8px;padding:0.75rem">
+            <p style="font-size:0.78rem;color:#2d6a4f;font-weight:500;margin:0">Total exportado (jan–nov 2025): <strong>US$ 21,6 bilhões</strong> — 6º do Brasil e melhor do Sul.</p>
+          </div>
+          <p style="font-size:0.7rem;color:#1e5738;font-style:italic;margin-top:0.25rem">Fontes: IPARDES/MDIC, dez. 2025</p>
+        </div>
+      </div>
+
+      <div class="highlight-box reveal">
+        <div class="icon" aria-hidden="true">🐟</div>
+        <div class="big-num" aria-label="R$ 2,29 bilhões">R$2,29 bi</div>
+        <h3>Tilápia: Crescimento Exponencial</h3>
+        <p>VBP da piscicultura paranaense em 2024 cresceu 10,4%. A tilápia representa +80% do valor e cresceu em média 24% ao ano nos últimos 14 anos — ritmo acima de bovinos, suínos e frangos.</p>
+        <p class="source-tag">Fonte: Deral/Governo do Paraná, 2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== PROBLEMAS ========== -->
+<section id="problemas" aria-labelledby="prob-title">
+  <div class="section-tag" aria-hidden="true">Seção 3 — Desafios</div>
+  <h2 id="prob-title" class="section-title">Os Desafios que Não Podem Ser Ignorados</h2>
+  <p class="section-desc">Crescer é essencial — mas crescer sem cuidar do planeta coloca em risco tudo que foi conquistado. Os dados são claros.</p>
+
+  <div class="problem-cards reveal" role="list">
+    <article class="problem-card" role="listitem">
+      <div class="p-icon" aria-hidden="true">🌳</div>
+      <h3>Desmatamento Ainda Alarmante</h3>
+      <p>Mesmo com queda de 20,6% em 2025, o Brasil ainda destrói 2.698 hectares por dia — equivalente a 17 parques Ibirapuera desmatados a cada 24 horas. A expansão agropecuária responde por 99% de toda vegetação nativa perdida em 2025.</p>
+      <span class="data-pill" aria-label="984 mil hectares desmatados em 2025">984 mil ha/ano (2025)</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: MapBiomas RAD2025, mai. 2026</p>
+    </article>
+
+    <article class="problem-card" role="listitem">
+      <div class="p-icon" aria-hidden="true">🌵</div>
+      <h3>Cerrado: O Berço das Águas em Risco</h3>
+      <p>O Cerrado perdeu 47,9% de sua vegetação nativa ao longo da história. Em 2025, respondeu por 540.614 ha desmatados — 54,9% do total nacional. A savana mais biodiversa do planeta abastece 8 das 12 principais bacias hidrográficas do Brasil.</p>
+      <span class="data-pill" aria-label="540 mil hectares desmatados no Cerrado em 2025">540 mil ha no Cerrado (2025)</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: MapBiomas / Agência Brasil, 2025</p>
+    </article>
+
+    <article class="problem-card warn" role="listitem">
+      <div class="p-icon" aria-hidden="true">💧</div>
+      <h3>Crise Hídrica e Segurança Alimentar</h3>
+      <p>O desmatamento do Cerrado pode colocar em risco a segurança hídrica do país, afetando a geração de energia elétrica, o abastecimento humano e o próprio agronegócio. O MMA reconhece: sem água, não há produção.</p>
+      <span class="data-pill" aria-label="74% de aumento das áreas agropecuárias no Cerrado entre 1985 e 2024">+74% áreas agro no Cerrado (1985–2024)</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: MapBiomas / Agência Brasil, nov. 2025</p>
+    </article>
+
+    <article class="problem-card warn" role="listitem">
+      <div class="p-icon" aria-hidden="true">🌡️</div>
+      <h3>Emissões e Mudanças Climáticas</h3>
+      <p>A agropecuária é uma das maiores fontes de gases de efeito estufa no Brasil, por meio do metano bovino, uso de fertilizantes nitrogenados e desmatamento. O aquecimento global já afeta a produtividade das lavouras brasileiras.</p>
+      <span class="data-pill" aria-label="3ª maior fonte de GEE do Brasil">3ª maior fonte de GEE</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: SEEG/Observatório do Clima</p>
+    </article>
+
+    <article class="problem-card info" role="listitem">
+      <div class="p-icon" aria-hidden="true">🧪</div>
+      <h3>Uso Excessivo de Agrotóxicos</h3>
+      <p>O Brasil é um dos maiores consumidores de agrotóxicos do mundo. O uso indiscriminado contamina solos, lençóis freáticos e afeta a biodiversidade — além de ameaçar polinizadores essenciais como abelhas, que são responsáveis por 30% da produção de alimentos.</p>
+      <span class="data-pill" aria-label="Brasil é o 1º ou 2º maior consumidor mundial de agrotóxicos">1º/2º consumidor mundial</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: IBAMA / ANVISA</p>
+    </article>
+
+    <article class="problem-card info" role="listitem">
+      <div class="p-icon" aria-hidden="true">🌱</div>
+      <h3>Degradação e Compactação do Solo</h3>
+      <p>O uso intensivo do solo sem rotação de culturas e sem plantio direto provoca compactação, perda de matéria orgânica e erosão. Estima-se que o Brasil perde anualmente bilhões de toneladas de solo fértil em áreas produtivas.</p>
+      <span class="data-pill" aria-label="Bilhões de toneladas de solo perdido por erosão">Bilhões de t/solo/ano perdido</span>
+      <p style="font-size:0.7rem;color:var(--text-soft);font-style:italic;margin-top:0.5rem">Fonte: Embrapa Solos</p>
+    </article>
+  </div>
+</section>
+
+<!-- ========== GERAÇÕES FUTURAS ========== -->
+<div id="geracoes" class="section-full">
+<div class="inner" aria-labelledby="ger-title">
+  <div class="section-tag" aria-hidden="true">Seção 4 — Futuro</div>
+  <h2 id="ger-title" class="section-title">O Que Está em Jogo Para as Gerações Futuras</h2>
+  <p class="section-desc">As decisões de hoje no campo determinarão se nossos filhos e netos terão água, solo fértil e clima estável para produzir alimentos.</p>
+
+  <div class="timeline reveal" role="list">
+    <div class="timeline-item" role="listitem">
+      <div class="timeline-year">2030</div>
+      <h3 class="timeline-title">Meta de Desmatamento Zero</h3>
+      <p class="timeline-body">O Brasil assumiu no Acordo de Paris o compromisso de <strong>zerar o desmatamento ilegal até 2030</strong>. Se mantida a tendência de queda de 20,6% ao ano, é atingível — mas especialistas alertam que ainda há representantes do agro pedindo anistia para desmatadores.
+      <br><em style="font-size:0.75rem">Fonte: MapBiomas / Acordo de Paris</em></p>
+    </div>
+
+    <div class="timeline-item" role="listitem">
+      <div class="timeline-year">2035–2040</div>
+      <h3 class="timeline-title">Colapso de Polinizadores?</h3>
+      <p class="timeline-body">Sem mudanças no uso de agrotóxicos, estima-se que populações de abelhas e outros polinizadores podem colapsar até 2040. Isso afetaria diretamente <strong>35% da produção mundial de alimentos</strong> dependente de polinização.
+      <br><em style="font-size:0.75rem">Fonte: IPBES/ONU, WWF</em></p>
+    </div>
+
+    <div class="timeline-item" role="listitem">
+      <div class="timeline-year">2050</div>
+      <h3 class="timeline-title">9,7 Bilhões de Pessoas Para Alimentar</h3>
+      <p class="timeline-body">A ONU projeta que a população mundial chegará a 9,7 bilhões em 2050, exigindo um aumento de <strong>50% na produção de alimentos</strong>. O Brasil — com apenas 7,5% da área agrícola do mundo e responsável por enorme parcela da produção global — é peça fundamental nessa equação. Só com sustentabilidade real será possível atender essa demanda.
+      <br><em style="font-size:0.75rem">Fonte: ONU/FAO</em></p>
+    </div>
+
+    <div class="timeline-item" role="listitem">
+      <div class="timeline-year">2100</div>
+      <h3 class="timeline-title">Cenário de Aquecimento Extremo</h3>
+      <p class="timeline-body">Sem redução drástica das emissões, modelos climáticos indicam aquecimento de 3–4°C no Brasil até 2100. Isso poderia tornar até <strong>40% das terras hoje produtivas do Cerrado e Nordeste inaptas para a agricultura</strong>, por seca extrema e calor.
+      <br><em style="font-size:0.75rem">Fonte: IPCC / INPE / Embrapa</em></p>
+    </div>
+
+    <div class="timeline-item" role="listitem">
+      <div class="timeline-year" style="color: var(--leaf)">Com Sustentabilidade</div>
+      <h3 class="timeline-title" style="color: var(--leaf)">O Caminho é Possível</h3>
+      <p class="timeline-body">A ONU já reconheceu a agropecuária brasileira como referência mundial. A produtividade brasileira aumentou 386% enquanto a área agrícola cresceu apenas 83% — isso significa que a produção pode crescer com a mesma área ou menos, preservando 120 milhões de hectares de floresta.
+      <br><em style="font-size:0.75rem">Fonte: UNFCCC/ONU / Embrapa</em></p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SOLUÇÕES ========== -->
+<section id="solucoes" aria-labelledby="sol-title">
+  <div class="section-tag" aria-hidden="true">Seção 5 — Soluções</div>
+  <h2 id="sol-title" class="section-title">Tecnologia e Manejo Inteligente: As Soluções que Funcionam</h2>
+  <p class="section-desc">Dados comprovam: é possível produzir mais, com menos área, menos insumos e menos impacto ambiental. Veja as principais tecnologias.</p>
+
+  <div class="solucao-tabs" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-ilpf" onclick="showTab('ilpf', this)">🌿 ILPF</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-precisao" onclick="showTab('precisao', this)">🛰️ Agro de Precisão</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-plantio" onclick="showTab('plantio', this)">🌱 Plantio Direto</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-bio" onclick="showTab('bio', this)">🧬 Biodefensivos</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-agua" onclick="showTab('agua', this)">💧 Irrigação Inteligente</button>
+  </div>
+
+  <div id="tab-ilpf" class="tab-content active" role="tabpanel">
+    <div class="solucao-card-big reveal">
+      <div class="sol-info">
+        <h3>🌿 Integração Lavoura-Pecuária-Floresta (ILPF)</h3>
+        <p>O sistema ILPF combina agricultura, pecuária e silvicultura em uma mesma área, criando sinergias ecológicas e econômicas. Já existem mais de <strong>17 milhões de hectares</strong> cultivados com esses modelos no Brasil, reconhecidos pela ONU como referência em sustentabilidade.</p>
+        <p>A pecuária de precisão integrada ao ILPF utiliza sensores IoT, georreferenciamento de pastagens e análise de dados em tempo real, criando solos mais férteis, maior sequestro de carbono e produção que dialoga com a agricultura sustentável.</p>
+        <p class="source">Fontes: Embrapa, UNFCCC/ONU, Embrapa Pecuária Sudeste</p>
+      </div>
+      <div class="sol-metrics">
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">📈</span>
+          <span class="m-text">Aumento de produtividade</span>
+          <span class="m-val" aria-label="Até 50% maior">Até +50%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌡️</span>
+          <span class="m-text">Sequestro de carbono</span>
+          <span class="m-val" aria-label="4 toneladas de CO2 por hectare por ano">4 tCO₂/ha/ano</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">💧</span>
+          <span class="m-text">Redução erosão do solo</span>
+          <span class="m-val" aria-label="Até 80% menos erosão">-80%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌿</span>
+          <span class="m-text">Aumento biodiversidade</span>
+          <span class="m-val" aria-label="Confirmado pela Embrapa">Confirmado</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌎</span>
+          <span class="m-text">Área com ILPF no Brasil</span>
+          <span class="m-val" aria-label="17 milhões de hectares">17 mi ha</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-precisao" class="tab-content" role="tabpanel">
+    <div class="solucao-card-big reveal">
+      <div class="sol-info">
+        <h3>🛰️ Agricultura de Precisão</h3>
+        <p>A Agricultura de Precisão (AP) é um processo gerencial que considera a variabilidade espacial da lavoura. Ao discernir diferenças e aplicar manejo sítio-específico, otimiza o uso de fertilizantes, agrotóxicos, água, energia e sementes — com ganhos de produtividade e benefícios ambientais comprovados pela Embrapa.</p>
+        <p>Tecnologias como drones, sensoriamento remoto, IA e inteligência artificial estão sendo incorporadas para otimizar o monitoramento ambiental e a produtividade. Resultado comprovado: produtividade brasileira cresceu 386% enquanto área agrícola cresceu apenas 83%.</p>
+        <p class="source">Fontes: Embrapa/Rede AP, UNFCCC/ONU</p>
+      </div>
+      <div class="sol-metrics">
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌱</span>
+          <span class="m-text">Redução uso de fertilizantes</span>
+          <span class="m-val" aria-label="20 a 40% menos fertilizantes">-20 a 40%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">💧</span>
+          <span class="m-text">Economia de água</span>
+          <span class="m-val" aria-label="30% de economia de água">-30%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">📊</span>
+          <span class="m-text">Aumento de produtividade</span>
+          <span class="m-val" aria-label="10 a 20% de aumento">+10 a 20%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌍</span>
+          <span class="m-text">Preços dos alimentos reduzidos</span>
+          <span class="m-val" aria-label="50% de redução no preço dos alimentos">-50%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🚁</span>
+          <span class="m-text">Culturas monitoradas</span>
+          <span class="m-val" aria-label="Soja, milho, cana, algodão etc.">10+ culturas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-plantio" class="tab-content" role="tabpanel">
+    <div class="solucao-card-big reveal">
+      <div class="sol-info">
+        <h3>🌱 Plantio Direto na Palha</h3>
+        <p>O Sistema Plantio Direto (SPD) — desenvolvido em grande parte no Paraná — consiste em não revolver o solo, mantendo a palha das culturas anteriores na superfície. Isso preserva a matéria orgânica, reduz a erosão e a compactação, aumenta a atividade biológica e economiza energia. O Paraná é referência mundial nessa técnica.</p>
+        <p>Estudos da Embrapa mostram que após anos de plantio direto com integração lavoura-pecuária, houve significativa redução da compactação do solo e aumento nos níveis de matéria orgânica — resultando em maiores produções de soja sem adicionar novos insumos.</p>
+        <p class="source">Fontes: Embrapa, SciELO/CAPES</p>
+      </div>
+      <div class="sol-metrics">
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌱</span>
+          <span class="m-text">Redução de erosão do solo</span>
+          <span class="m-val" aria-label="Mais de 90% de redução">-90%+</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">💧</span>
+          <span class="m-text">Retenção de água no solo</span>
+          <span class="m-val" aria-label="Até 40% mais água retida">+40%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">⛽</span>
+          <span class="m-text">Economia de combustível</span>
+          <span class="m-val" aria-label="Até 60% menos combustível">-60%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌡️</span>
+          <span class="m-text">Carbono estocado no solo</span>
+          <span class="m-val" aria-label="Alta capacidade de estoque de carbono">Alta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-bio" class="tab-content" role="tabpanel">
+    <div class="solucao-card-big reveal">
+      <div class="sol-info">
+        <h3>🧬 Biodefensivos e Inoculantes Biológicos</h3>
+        <p>Biodefensivos são produtos de origem biológica — fungos, bactérias e vírus naturais — usados para controlar pragas e doenças das plantas, substituindo agrotóxicos sintéticos. Inoculantes biológicos com bactérias fixadoras de nitrogênio substituem fertilizantes químicos, reduzindo custo e impacto ambiental.</p>
+        <p>O Brasil já é o maior mercado mundial de biopesticidas e inoculantes biológicos. A soja brasileira é amplamente cultivada sem nitrogênio sintético graças à inoculação com bradirrizóbio — técnica que poupa bilhões em fertilizantes e reduz emissões.</p>
+        <p class="source">Fontes: Embrapa Soja, MAPA, CropLife Brasil</p>
+      </div>
+      <div class="sol-metrics">
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🧪</span>
+          <span class="m-text">Redução de agrotóxico</span>
+          <span class="m-val" aria-label="Até 70% menos agrotóxico">-70%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">💰</span>
+          <span class="m-text">Economia em fertilizantes</span>
+          <span class="m-val" aria-label="Economia de R$ 25 bilhões por ano na soja">R$25bi/ano</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🐝</span>
+          <span class="m-text">Proteção a polinizadores</span>
+          <span class="m-val" aria-label="Sem risco para abelhas">Sem risco</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌎</span>
+          <span class="m-text">Mercado global 2025</span>
+          <span class="m-val" aria-label="Mercado de US$ 10 bilhões">US$10 bi+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-agua" class="tab-content" role="tabpanel">
+    <div class="solucao-card-big reveal">
+      <div class="sol-info">
+        <h3>💧 Irrigação Inteligente e Captação de Água</h3>
+        <p>A irrigação por gotejamento e pivô de precisão, combinada com sensores de umidade do solo e IA, permite aplicar exatamente a água que a planta precisa — evitando desperdício e salinização do solo. Sistemas de captação de água da chuva e reaproveitamento de águas residuais completam o ciclo sustentável.</p>
+        <p>No Cerrado e Semiárido, a irrigação inteligente pode ser a diferença entre uma safra e um deserto. O Brasil tem enorme potencial hídrico, mas usa de forma ineficiente: com tecnologia, é possível produzir o mesmo com até metade da água.</p>
+        <p class="source">Fontes: ANA, Embrapa, FAO</p>
+      </div>
+      <div class="sol-metrics">
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">💧</span>
+          <span class="m-text">Economia de água</span>
+          <span class="m-val" aria-label="Até 50% de economia de água com gotejamento">-50%</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">📈</span>
+          <span class="m-text">Produtividade irrigada</span>
+          <span class="m-val" aria-label="2 a 3 vezes mais produtivo">2–3× mais</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🌡️</span>
+          <span class="m-text">Microclima regulado</span>
+          <span class="m-val" aria-label="Temperatura reduzida em até 4 graus">-4°C</span>
+        </div>
+        <div class="sol-metric">
+          <span class="m-icon" aria-hidden="true">🧂</span>
+          <span class="m-text">Redução salinização</span>
+          <span class="m-val" aria-label="Significativa redução de salinização">Alta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== REPORTAGENS ========== -->
+<div id="reportagens" class="section-full">
+<div class="inner" aria-labelledby="rep-title">
+  <div class="section-tag" aria-hidden="true">Seção 6 — Evidências</div>
+  <h2 id="rep-title" class="section-title">Onde Já Funcionou: Casos Reais</h2>
+  <p class="section-desc">Dados, reportagens e pesquisas comprovam que a agricultura sustentável é mais produtiva — não apenas mais responsável.</p>
+
+  <div class="report-grid reveal">
+    <article class="report-card">
+      <div class="report-thumb g1" role="img" aria-label="Ilustração de campo integrado ILPF">🌿🐄🌳</div>
+      <div class="report-body">
+        <div class="report-tag">Embrapa / UNFCCC</div>
+        <h3 class="report-title">ILPF Reconhecido pela ONU Como Modelo Global</h3>
+        <p class="report-desc">O secretariado da UNFCCC publicou relatório citando o sistema ILPF e a agricultura de precisão brasileiros como responsáveis por elevar produtividade em 386% enquanto a área cresceu apenas 83% — preservando 120 milhões de hectares de floresta.</p>
+        <span class="report-result" aria-label="Resultado: preservação de 120 milhões de hectares de floresta">✔ 120 mi ha de floresta preservados</span>
+        <p class="report-source">Fonte: UNFCCC/ONU, O Presente Rural · 2021</p>
+      </div>
+    </article>
+
+    <article class="report-card">
+      <div class="report-thumb g2" role="img" aria-label="Ilustração de lavoura de soja sustentável">🫘🔬✅</div>
+      <div class="report-body">
+        <div class="report-tag">Embrapa Soja / MAPA</div>
+        <h3 class="report-title">Soja Sem Nitrogênio Sintético: Inoculação Biológica no Paraná</h3>
+        <p class="report-desc">Produtores paranaenses de soja produzem safras recordes sem fertilizante nitrogenado sintético graças à inoculação com Bradyrhizobium. A tecnologia economiza bilhões em insumos e reduz drasticamente as emissões de N₂O, um dos mais poderosos gases de efeito estufa.</p>
+        <span class="report-result" aria-label="Resultado: R$ 25 bilhões economizados por ano em fertilizantes">✔ R$25 bi/ano economizados em fert.</span>
+        <p class="report-source">Fonte: Embrapa Soja · Paraná</p>
+      </div>
+    </article>
+
+    <article class="report-card">
+      <div class="report-thumb g3" role="img" aria-label="Ilustração de agronegócio do Paraná crescendo">📊🌾🚀</div>
+      <div class="report-body">
+        <div class="report-tag">IPARDES / Governo do Paraná</div>
+        <h3 class="report-title">Paraná: Produção Recorde com Sustentabilidade Crescente</h3>
+        <p class="report-desc">O Paraná projeta VBP de R$200 bilhões em 2025 e exportou US$21,6 bi (jan-nov 2025) — ao mesmo tempo que avança em técnicas de ILPF, bioinsumos e agricultores aderentes ao Programa Paraná Mais Verde, com incentivos a quem mantém vegetação nativa.</p>
+        <span class="report-result" aria-label="Resultado: R$ 200 bilhões de VBP com técnicas sustentáveis">✔ R$200 bi com técnicas sustentáveis</span>
+        <p class="report-source">Fonte: IPARDES/Deral · dez. 2025</p>
+      </div>
+    </article>
+
+    <article class="report-card">
+      <div class="report-thumb g4" role="img" aria-label="Ilustração de tecnologia de precisão no campo">🛰️🤖🌾</div>
+      <div class="report-body">
+        <div class="report-tag">Embrapa / Rede AP</div>
+        <h3 class="report-title">Agricultura de Precisão: Mais com Menos em 10 Culturas</h3>
+        <p class="report-desc">A Rede de Agricultura de Precisão da Embrapa obteve resultados expressivos em variabilidade de produção e parâmetros edafoambientais em soja, milho, algodão, trigo, eucalipto, cana-de-açúcar, laranja, uva, maçã e pêssego — demonstrando que a tecnologia pode transformar qualquer segmento do agro.</p>
+        <span class="report-result" aria-label="Resultado: 10 culturas com ganhos comprovados de produtividade e sustentabilidade">✔ 10 culturas com ganhos comprovados</span>
+        <p class="report-source">Fonte: Embrapa / Rede AP Brasil</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- Citação de impacto -->
+  <blockquote style="margin: 3rem 0; padding: 2rem 2.5rem; background: var(--bg-card); border-left: 4px solid var(--leaf); border-radius: 0 var(--radius) var(--radius) 0; font-family: var(--font-display); font-size: 1.1rem; color: var(--text-dark); line-height: 1.6;" class="reveal">
+    <span style="font-size: 2.5rem; color: var(--leaf); line-height: 0.5; display: block; margin-bottom: 0.5rem;">"</span>
+    99% dos imóveis registrados no CAR não tiveram desmatamento em 2024, mas ainda assim houve aumento da produção agropecuária. Isso é a prova de que é possível produzir no campo sem desmatar.
+    <footer style="font-size: 0.8rem; color: var(--text-soft); margin-top: 0.75rem; font-family: var(--font-body);">
+      — Marcos Rosa, Coordenador técnico do MapBiomas · mai. 2026
+    </footer>
+  </blockquote>
+</div>
+</div>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer role="contentinfo">
+  <p class="footer-logo" aria-label="Agrinho 2026">🌿 Agrinho 2026</p>
+  <p style="max-width:600px;margin:0 auto 1rem">
+    <strong>Agro Forte, Futuro Sustentável:</strong> Equilíbrio entre produção e meio ambiente.
+  </p>
+  <p>Dados verificados de: <strong>Cepea/USP · CNA · IBGE · MapBiomas · Embrapa · IPARDES · Deral · UNFCCC/ONU</strong></p>
+  <p style="margin-top:0.5rem">
+    Desenvolvido para o <strong>Concurso Agrinho 2026</strong> — SENAR Paraná
+  </p>
+  <p style="margin-top: 1rem; font-size: 0.78rem; opacity: 0.6;">
+    Fontes abertas e verificáveis. Todos os dados têm citação e podem ser consultados nas referências acima.
+  </p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// ===== NAVBAR PROGRESS =====
+const progress = document.getElementById('nav-progress');
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const p = Math.min(100, (window.scrollY / total) * 100);
+  progress.style.width = p + '%';
+  progress.setAttribute('aria-valuenow', Math.round(p));
+});
+
+// ===== REVEAL ON SCROLL =====
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// ===== TABS =====
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+}
+
+// ===== DARK MODE =====
+function toggleDark() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('btn-dark').textContent = isDark ? '🌙' : '☀️';
+  document.getElementById('btn-dark').classList.toggle('active', !isDark);
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// ===== COLOR MODE =====
+let currentColor = null;
+function toggleColor(mode) {
+  const html = document.documentElement;
+  const btnDeut = document.getElementById('btn-deut');
+  const btnProt = document.getElementById('btn-prot');
+  if (currentColor === mode) {
+    html.removeAttribute('data-color');
+    currentColor = null;
+    btnDeut.classList.remove('active');
+    btnProt.classList.remove('active');
+  } else {
+    html.setAttribute('data-color', mode);
+    currentColor = mode;
+    btnDeut.classList.toggle('active', mode === 'deuteranopia');
+    btnProt.classList.toggle('active', mode === 'protanopia');
+  }
+}
+
+// ===== HIGH CONTRAST =====
+let hc = false;
+function toggleContrast() {
+  hc = !hc;
+  document.body.classList.toggle('high-contrast', hc);
+  document.getElementById('btn-contrast').classList.toggle('active', hc);
+}
+
+// ===== FONT SIZE =====
+let fontSize = 0; // 0=normal, 1=lg, 2=xl
+function changeFontSize(dir) {
+  fontSize = Math.max(0, Math.min(2, fontSize + dir));
+  document.body.classList.remove('text-lg', 'text-xl');
+  if (fontSize === 1) document.body.classList.add('text-lg');
+  if (fontSize === 2) document.body.classList.add('text-xl');
+}
+
+// ===== AUDIO / TTS =====
+let audioEnabled = false;
+function toggleAudio() {
+  audioEnabled = !audioEnabled;
+  document.getElementById('audio-controls').style.display = audioEnabled ? 'flex' : 'none';
+  document.getElementById('btn-audio').classList.toggle('active', audioEnabled);
+  if (audioEnabled) {
+    speak('Leitura de tela ativada. Use os botões na parte inferior direita para ler seções.');
+  } else {
+    window.speechSynthesis.cancel();
+  }
+}
+
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'pt-BR';
+  utt.rate = 0.95;
+  window.speechSynthesis.speak(utt);
+}
+
+function speakSection() {
+  const sections = ['hero','dados','parana','problemas','geracoes','solucoes','reportagens'];
+  let currentSection = sections[0];
+  const scrollY = window.scrollY + 100;
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollY) currentSection = id;
+  }
+  const el = document.getElementById(currentSection);
+  if (el) {
+    const text = el.innerText.substring(0, 800);
+    speak(text);
+  }
+}
+
+// ===== MASCOTE =====
+const bubbleMessages = [
+  '🌿 Olá! Eu sou o Girassol, mascote do Agrinho 2026! Explore o site e aprenda sobre o equilíbrio entre produção e natureza!',
+  '🌾 Você sabia? O agronegócio brasileiro representa 25,13% do PIB em 2025, segundo o Cepea/USP!',
+  '🐝 As abelhas são essenciais: polinizam 35% dos nossos alimentos! Proteger o meio ambiente é proteger a nossa comida!',
+  '🌱 Sabia que o Plantio Direto, criado no Paraná, reduz a erosão do solo em mais de 90%?',
+  '💧 A irrigação inteligente pode economizar até 50% da água usada na lavoura! Tecnologia a serviço da natureza!',
+  '🌳 O ILPF — Integração Lavoura-Pecuária-Floresta — já cobre 17 milhões de hectares no Brasil!',
+  '🛰️ Com agricultura de precisão, a produtividade brasileira cresceu 386% com apenas 83% mais área! (Fonte: ONU)',
+  '🌍 A ONU reconheceu o agro brasileiro como referência mundial em sustentabilidade. Que orgulho!',
+];
+let bubbleIndex = 0;
+let bubbleShown = false;
+
+function showMascote() {
+  const bubble = document.getElementById('mascote-bubble');
+  const text = document.getElementById('bubble-text');
+  if (bubbleShown) {
+    hideMascote(); return;
+  }
+  text.textContent = bubbleMessages[bubbleIndex % bubbleMessages.length];
+  bubbleIndex++;
+  bubble.classList.add('show');
+  bubbleShown = true;
+  setTimeout(hideMascote, 8000);
+}
+
+function hideMascote() {
+  document.getElementById('mascote-bubble').classList.remove('show');
+  bubbleShown = false;
+}
+
+// Show mascote after scroll milestones
+const milestones = [0.2, 0.45, 0.65, 0.85];
+let shownMilestones = new Set();
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+  for (const m of milestones) {
+    if (p >= m && !shownMilestones.has(m) && !bubbleShown) {
+      shownMilestones.add(m);
+      setTimeout(showMascote, 1500);
+      break;
+    }
+  }
+});
+
+// Initial mascote greeting
+setTimeout(showMascote, 3000);
+
+// ===== LOAD SAVED THEME =====
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const btn = document.getElementById('btn-dark');
+    if (btn) { btn.textContent = '☀️'; btn.classList.add('active'); }
+  }
+})();
+
+// ===== BAR CHART ANIMATION ON VISIBILITY =====
+const bars = document.querySelectorAll('.bar-fill');
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.3 });
+bars.forEach(b => {
+  b.style.animationPlayState = 'paused';
+  barObs.observe(b);
+});
+</script>
+</body>
+</html>
+
 
